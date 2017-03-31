@@ -1,0 +1,16 @@
+html,
+body {
+    margin: 0;
+    overflow: hidden;
+    height: 100%;
+    background-color: lightslategray;
+}
+
+canvas {
+    margin: 60px 33% 100px 33%;
+}
+/* Scale canvas with resize attribute to full size */
+canvas[resize] {
+    width: 600px;
+    height: 500px;
+}
