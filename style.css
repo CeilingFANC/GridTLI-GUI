@@ -7,10 +7,12 @@ body {
 }
 
 canvas {
-    margin: 60px 33% 100px 33%;
+    display: block;
+    margin: auto;
+    margin-top: 60px;
 }
 /* Scale canvas with resize attribute to full size */
 canvas[resize] {
-    width: 600px;
-    height: 500px;
+    width: 800px;
+    height: 550px;
 }
