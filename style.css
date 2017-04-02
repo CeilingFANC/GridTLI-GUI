@@ -6,13 +6,19 @@ body {
     background-color: lightslategray;
 }
 
-canvas {
+#canvas {
+    /*position: absolute;*/
     display: block;
-    margin: auto;
-    margin-top: 60px;
-}
-/* Scale canvas with resize attribute to full size */
-canvas[resize] {
     width: 800px;
     height: 550px;
+    margin: auto;
+    margin-top: -550px;
+}
+
+#gridlayer {
+    display: block;
+    width: 800px;
+    height: 550px;
+    margin: auto;
+    margin-top: 60px;
 }

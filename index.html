@@ -11,14 +11,7 @@
     <script type="text/javascript" src="paper-full.js"></script>
     <script type="text/paperscript" canvas="canvas">
 		// Define background color for the canvas
-		var rect = new Path.Rectangle({
-			point: [0, 0],
-			size: [view.size.width, view.size.height],
-			fillColor: "#ccc",
-			selected: true
-		});
-		rect.sendToBack();
-		rect.selected = false;
+		canvas.style.background = 'transparent';
 
 		var path;
 		var allPathsList = [];
@@ -72,12 +65,40 @@
 			// for testing purposes, display all paths and latest path
 			numPaths = allPathsList.length;
 			textItem.content = allPathsList + "\n" + allPathsList[numPaths-1] + "\n";
-
 		}
+
     </script>
+	<script type="text/paperscript" canvas="gridlayer">
+		gridlayer.style.background = '#ccc';
+		var drawGridLines = function(num_rectangles_wide, num_rectangles_tall, boundingRect) {
+			var width_per_rectangle = boundingRect.width / num_rectangles_wide;
+			var height_per_rectangle = boundingRect.height / num_rectangles_tall;
+			for (var i = 0; i <= num_rectangles_wide; i++) {
+				var xPos = boundingRect.left + i * width_per_rectangle;
+				var topPoint = new paper.Point(xPos, boundingRect.top);
+				var bottomPoint = new paper.Point(xPos, boundingRect.bottom);
+				var aLine = new paper.Path.Line(topPoint, bottomPoint);
+				aLine.strokeColor = '#999';
+			}
+
+			for (var i = 0; i <= num_rectangles_tall; i++) {
+				var yPos = boundingRect.top + i * height_per_rectangle;
+				var leftPoint = new paper.Point(boundingRect.left, yPos);
+				var rightPoint = new paper.Point(boundingRect.right, yPos);
+				var aLine = new paper.Path.Line(leftPoint, rightPoint);
+				aLine.strokeColor = '#999';
+			}
+		}
+		drawGridLines(16, 12, paper.view.bounds);
+	</script>
 </head>
 <body>
-	<canvas id="canvas" resize></canvas>
+	<div>
+		<canvas id="gridlayer">
+		</canvas>
+		<canvas id="canvas">
+		</canvas>
+	</div>
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
