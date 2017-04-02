@@ -1,0 +1,124 @@
+
+/* This is the first section that defines the overall CSS rules */ 
+/****************************************************************/
+/* Defines the style of the body of our code */
+body {
+	border-top: 5px solid #e56038;
+	background: #ebe8de;
+	font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    overflow: hidden;
+    height: 100%;
+    background-color: #333333;
+}
+/* Defines the style of the input boxes of our code */
+input 
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	padding: 7px;
+	outline: 0;
+	border: 0;
+	width: 250px;
+	background: #EBE8DE;
+	border-radius: 5px;
+}
+input[type=submit]
+{
+	width:auto;
+	padding:5px 18px;
+	line-height:25px;
+	text-shadow:none;
+	cursor:pointer;
+	box-shadow:none;
+	background: #333333;
+	color: #fff;
+}
+
+/* Define the paragraph and text styles */
+p
+{
+	margin: 5px 0;
+	line-height: 25px; 
+}
+a 
+{
+	text-decoration: none;
+	color: inherit;
+	transition: color .5s ease;
+}
+strong
+{
+	font-weight: bold;
+}
+
+/* Defines the style of the canvas where we do our drawing */
+#canvas {
+    /*position: absolute;*/
+    display: block;
+    width: 800px;
+    height: 550px;
+    margin: auto;
+    margin-top: -550px;
+}
+
+#gridlayer {
+    display: block;
+    width: 800px;
+    height: 550px;
+    margin: auto;
+    margin-top: 60px;
+}
+/*************************************************************/
+/* Finished first section 									 */ 
+/*************************************************************/
+/* Define the header style				 					 */
+/*************************************************************/ 
+header
+{
+	position:relative;
+	width:auto;
+	max-width:900px;
+	margin: 0 auto 20px auto;
+}
+header h1
+{
+	margin: 35px 0 0 0;
+	font-size: 55px;
+	color: #e56038; 
+	font-family: 'Baumans', cursive; 
+}
+header p
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	color: #4A463B;
+	margin-left:132px; 
+}
+/*************************************************************/
+/* Navigation links style 									 */
+/*************************************************************/
+nav ul 
+{
+	list-style: none;
+}
+nav ul li
+{
+	display: block;
+	float: left;
+	padding: 3px 15px;
+}
+nav ul li a
+{
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	transition: all .25s ease;
+}
+nav ul li a:hover
+{
+	color: #E56038;
+}
+
+/*************************************************************/
+
+
