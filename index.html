@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
     <title>GridTLI GUI</title>
-	<!-- load bootstrap stylesheet -->
-	<link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css"></link>
+	<!-- load custom javascript file -->
+	<script type="text/javascript" src="gridfunctions.js"></script>
 	<!-- load custom stylesheet -->
     <link rel="stylesheet" href="style.css"></link>
 	<!-- load paper.js and canvas -->
@@ -12,11 +12,9 @@
     <script type="text/paperscript" canvas="canvas">
 		// Define background color for the canvas
 		canvas.style.background = 'transparent';
-
 		var path;
 		var allPathsList = [];
 		var pointList = [];
-
 		var textItem = new PointText({
 			content: 'Click and drag to draw a line.',
 			point: new Point(20, 30),
@@ -28,7 +26,6 @@
 			if (path) {
 				path.selected = false;
 			}
-
 			// Create a new path and set its stroke color to black:
 			path = new Path({
 				segments: [event.point],
@@ -54,14 +51,10 @@
 		function onMouseUp(event) {
 			var segmentCount = path.segments.length;
 			textItem.content = segmentCount;
-
 			// add the list of points for the segment to the list of all paths
-
 			allPathsList.push(pointList);
-
 			// reinitilizae the pointList
 			pointList = [];
-
 			// for testing purposes, display all paths and latest path
 			numPaths = allPathsList.length;
 			textItem.content = allPathsList + "\n" + allPathsList[numPaths-1] + "\n";
@@ -91,25 +84,128 @@
 		}
 		drawGridLines(16, 12, paper.view.bounds);
 	</script>
+	<script type="text/paperscript" canvas="axislayer">
+		axislayer.style.background = 'transparent';
+
+		var xAxisValues = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+		var yAxisValues = [6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5, -6];
+		var drawAxes = function(num_rectangles_wide, num_rectangles_tall, boundingRect) {
+
+			var xlabel = new PointText(new Point(((boundingRect.right - 60) / 2), boundingRect.bottom - 3));
+			xlabel.content = "X Label";
+
+			var width_per_rectangle = (boundingRect.width - 60) / num_rectangles_wide;
+			var height_per_rectangle = (boundingRect.height - 60) / num_rectangles_tall;
+			for (var i = 0; i <= num_rectangles_wide; i++) {
+				var xPos = 50 + i * width_per_rectangle;
+				var xPos2 = boundingRect.bottom - 55;
+				var topPoint = new paper.Point(xPos, xPos2);
+				var bottomPoint = new paper.Point(xPos, boundingRect.bottom - 45);
+				var aLine = new paper.Path.Line(topPoint, bottomPoint);
+				aLine.strokeColor = '#000';
+				var xticks = new PointText(new Point(xPos - 5, boundingRect.bottom - 30));
+				xticks.content = xAxisValues[i];
+			}
+
+			for (var i = 0; i <= num_rectangles_tall; i++) {
+				var yPos = boundingRect.top + 10 + i * height_per_rectangle;
+				var yPos2 = 45 + 10;
+				var leftPoint = new paper.Point(45, yPos);
+				var rightPoint = new paper.Point(yPos2, yPos);
+				var aLine = new paper.Path.Line(leftPoint, rightPoint);
+				aLine.strokeColor = '#000';
+				var yticks = new PointText(new Point(boundingRect.left + 25, yPos + 5));
+				yticks.content = yAxisValues[i];
+			}
+			var bottomLeftPoint = new paper.Point(50 ,boundingRect.bottom - 50);
+			var topLeftPoint = new paper.Point(50, 10);
+			var bottomRightPoint = new paper.Point(boundingRect.right - 10,boundingRect.bottom - 50);
+			var aLine = new paper.Path.Line(bottomLeftPoint, bottomRightPoint)
+			aLine.strokeColor = '#000';
+			var aLine = new paper.Path.Line(bottomLeftPoint, topLeftPoint)
+			aLine.strokeColor = '#000';
+		}
+		drawAxes(16, 12, paper.view.bounds);
+	</script>
 </head>
 <body>
-	<div>
-		<canvas id="gridlayer">
-		</canvas>
-		<canvas id="canvas">
-		</canvas>
+	<div class="navbar">
+		<a href="#">Home</a>
+		<a href="#">About</a>
 	</div>
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<div class="nav-collapse collapse">
-					<ul class="nav">
-						<li><a href="#">Home</a></li>
-						<li><a href="#">About</a></li>
-					</ul>
-				</div>
-			</div>
+	<div id="tab">
+		<article id="drawingGrid">
+			<canvas id="gridlayer"></canvas>
+			<canvas id="axislayer"></canvas>
+			<canvas id="canvas"></canvas>
+			<p class="rotate" id="label">Y Label</p>
+		</article>
+		<div id="threshold">
+			<h3>Graph Values</h3>
+			<article class="spatial">
+				<article class="graphLabels">
+					<p>Spatial:</p>
+				</article>
+				<article class="graphValues">
+					<input type="text" id="xmin" value="X_min"
+						onblur="if (this.value == '') {this.value = 'X_min';}"
+						onfocus="if (this.value == 'X_min') {this.value = '';}" />
+					<br>
+					<input type="text" id="xmax" value="X_max"
+						onblur="if (this.value == '') {this.value = 'X_max';}"
+						onfocus="if (this.value == 'X_max') {this.value = '';}" />
+				</article>
+			</article>
+			<article class="temporal">
+				<article class="graphLabels">
+					<p>Temporal:</p>
+				</article>
+				<article class="graphValues">
+					<input type="text" id="ymax" value="Y_max"
+						onblur="if (this.value == '') {this.value = 'Y_max';}"
+						onfocus="if (this.value == 'Y_max') {this.value = '';}" />
+				</article>
+			</article>
+			<h3 class="thresh">Threshold Values</h3>
+			<article class="spatial">
+				<article class="threshLabels">
+					<p>Spatial:</p>
+				</article>
+				<article class="threshValues">
+					<input type="text" id="x_divs" value="Xt"
+						onblur="if (this.value == '') {this.value = 'Xt';}"
+						onfocus="if (this.value == 'Xt') {this.value = '';}" />
+				</article>
+			</article>
+			<article class="temporal">
+				<article class="threshLabels">
+					<p>Temporal:</p>
+				</article>
+				<article class="threshValues">
+					<input type="text" id="y_divs" value="Yt"
+						onblur="if (this.value == '') {this.value = 'Yt';}"
+						onfocus="if (this.value == 'Yt') {this.value = '';}" />
+				</article>
+			</article>
+			<article class="cluster">
+				<article class="threshLabels">
+					<p>Cluster:</p>
+				</article>
+				<article class="threshValues">
+					<input type="text" id="cluster" value="Ct"
+						onblur="if (this.value == '') {this.value = 'Ct';}"
+						onfocus="if (this.value == 'Ct') {this.value = '';}" />
+				</article>
+			</article>
+			<button type="submit" id="changeVals" onClick="changeValues()">Run</button>
 		</div>
 	</div>
+	<!--this section helps me check the javascript function for "run" gathers the values-->
+	<input type="text" id="xtmin" value="1"><br>
+	<input type="text" id="xtmax" value="1"><br>
+	<input type="text" id="ytmax" value="1"><br>
+	<input type="text" id="ct" value="1"><br>
+	<input id="xrange" value="1" style="width: 200px"><br>
+	<input id="yrange" value="1" style="width: 200px">
 </body>
 </html>
