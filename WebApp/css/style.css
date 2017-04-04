@@ -2,15 +2,16 @@
 /* This is the first section that defines the overall CSS rules */ 
 /****************************************************************/
 /* Defines the style of the body of our code */
-body {
+html, body {
 	border-top: 5px solid #e56038;
 	background: #ebe8de;
 	font-family: 'Open Sans', sans-serif;
     margin: 0;
-    overflow: hidden;
     height: 100%;
-    background-color: #333333;
+    background-color: #fffefa;
+	overflow: scroll;
 }
+
 /* Defines the style of the input boxes of our code */
 input 
 {
@@ -34,7 +35,16 @@ input[type=submit]
 	background: #333333;
 	color: #fff;
 }
+button {
+    text-align: center;
+    font-weight: bold;
+}
 
+#changeVals {
+    width: 70px;
+    height: 25px;
+    margin: 0px 0 0 50px;
+}
 /* Define the paragraph and text styles */
 p
 {
@@ -51,23 +61,87 @@ strong
 {
 	font-weight: bold;
 }
+h3 {
+    text-align: center;
+    margin: -10px 0;
+}
 
+h3.thresh {
+    margin: 140px 0 0 0;
+}
 /* Defines the style of the canvas where we do our drawing */
-#canvas {
-    /*position: absolute;*/
+#tab {
+    float: right;
+    width: 950px;
+    /*max-width: 1000px;*/
+    height: 580px;
+    margin: 120px 50px 0px auto;
+    background-color: #aaa;
+    padding: 20px;
+}
+
+#tab #drawingGrid {
+    float: right;
+    /*margin-left: 50px;*/
+}
+
+canvas {
+    width: 650px;
+    height: 450px;
     display: block;
-    width: 800px;
-    height: 550px;
-    margin: auto;
-    margin-top: -550px;
+}
+#label {
+    margin: -925px 0 0 -750px;
 }
 
 #gridlayer {
-    display: block;
-    width: 800px;
-    height: 550px;
-    margin: auto;
-    margin-top: 60px;
+    margin: 50px 20px 0 0;
+}
+
+#axislayer {
+    width: 710px;
+    height: 510px;
+    margin: -460px 0 0 -50px;
+}
+
+#canvas {
+    margin: -500px 20px 0 0;
+}
+
+#tab #threshold {
+    float: left;
+    width: auto;
+    max-width: 170px;
+    margin: 30px auto 0px 20px;
+    padding: 70px 0 45px 0;
+}
+
+.graphLabels {
+    float: left;
+    width: 100px;
+    margin: 20px 10px 15px 0;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.graphValues {
+    float: right;
+    width: 60px;
+    margin: 10px 0px;
+}
+
+.threshLabels {
+    float: left;
+    width: 100px;
+    margin: 5px 10px 5px 0;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.threshValues {
+    float: right;
+    width: 60px;
+    margin: 5px 0px;
 }
 /*************************************************************/
 /* Finished first section 									 */ 
@@ -78,15 +152,17 @@ header
 {
 	position:relative;
 	width:auto;
-	max-width:900px;
-	margin: 0 auto 20px auto;
+	max-width:1000px;
+	margin: 5 auto 20px auto;
 }
-header h1
+.header h1
 {
 	margin: 35px 0 0 0;
 	font-size: 55px;
 	color: #e56038; 
 	font-family: 'Baumans', cursive; 
+	position: relative;
+	float: center;
 }
 header p
 {
@@ -94,6 +170,23 @@ header p
 	font-size: 16px;
 	color: #4A463B;
 	margin-left:132px; 
+}
+header .search
+{
+	margin: 50px;
+	margin-top:5px;
+	width: auto;
+	position: absolute;
+	right: 50%;
+	margin-right: -400px;
+}
+.header img 
+{
+	float: left;
+	width: 180px;
+	height: 100px;
+	top: -5;
+	margin: 35px;
 }
 /*************************************************************/
 /* Navigation links style 									 */
@@ -120,5 +213,46 @@ nav ul li a:hover
 }
 
 /*************************************************************/
+/* Spacer design 											 */
+/*************************************************************/
+#spacer 
+{
+	width:auto;
+	height:170px;
+	background-color: #e56038;
+	position: relative;
+	font-family: 'Open Sans', sans-serif;
+	color: #fff;
+	font-size: 18px; 
+	clear: both;
+}
+#spacer p 
+{
+	margin-top:1px;
+	width:auto;
+	position:absolute;
+	left: 30%;
+	margin-left: -450px;
+}
+
+.rotate {
+    /* Safari */
+    -webkit-transform: rotate(-90deg);
+    /* Firefox */
+    -moz-transform: rotate(-90deg);
+    /* IE */
+    -ms-transform: rotate(-90deg);
+    /* Opera */
+    -o-transform: rotate(-90deg);
+    /* Internet Explorer */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+
+
+
+
+
+
 
 
