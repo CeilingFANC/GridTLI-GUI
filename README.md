@@ -7,6 +7,9 @@ A GUI for Grid-Based Temporal Logic Inference
   each time click on the graph will add a new point.
   to finish current line, click the place that is out of boundary(x<50,x>700,y<10,y>460), 
             for example,click the word" X Label " at the bottom
+
+
+
 2. adding new segment,
   effect on the last line 
   similiar to the function above, finishing by clicking outside
