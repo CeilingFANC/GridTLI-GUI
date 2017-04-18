@@ -30,12 +30,14 @@
 			var path;
 			var checkX;
 			var count = 0;
-			var another_count=0;
+			var another_count=0; // variable indicating the state of the append method
+			var count_3=0;
+			var count_4=0;
 			
 			
 			//needed for shistpoints
 			var fourth=true;
-			var position_index=0;
+			var position_index=null;
 			var pre_x=50;
 			var suc_x=700;
 			
@@ -67,6 +69,8 @@
 			// Define tool to draw the whole line segment
 			drawLine = new Tool();
 			drawLine.onMouseDown = function(event) {
+			
+				shutup();//put here to fix a bug
 				if ((50 <= event.point["x"]) && (event.point["x"] <= 700) && (10 <= event.point["y"]) && (event.point["y"] <= 460)) {
 					// If we produced a path before, deselect it:
 					if (path) {
@@ -121,7 +125,8 @@
 					count = 0;
 					path.selected = false;	
 					group.addChild(path); //good morning
-					
+					shutup();
+			
 					//path_ob_list.push(path);
 					var segmentCount = path.segments.length;
 					textItem.content = segmentCount;
@@ -143,6 +148,7 @@
 			// Define tool to draw points and connect them
 			drawPoints = new Tool();
 			drawPoints.onMouseDown = function(event) {
+				//shutup();//put here to fix a bug
 				if ((50 <= event.point["x"]) && (event.point["x"] <= 700) && (10 <= event.point["y"]) && (event.point["y"] <= 460)) {
 					// If we produced a path before, deselect it:
 					if (count!=0){
@@ -176,6 +182,7 @@
 					another_count = 0;
 					number_point++;
 					path.selected = false;				
+					shutup();
 
 					group.addChild(path); //good morning
 
@@ -199,12 +206,12 @@
 			appendPoints = new Tool();
 			appendPoints.onMouseDown = function(event) {
 	
-
+				shutup();//put here to fix a bug
 				if ((50 <= event.point["x"]) && (event.point["x"] <= 700) && (10 <= event.point["y"]) && (event.point["y"] <= 460)) {
 					// If we produced a path before, deselect it:
 
 
-					if (another_count==0) {
+					if (count_3==0) {
 						
 						path=group.children[group.children.length-1];
 						path.selected = true;				
@@ -212,7 +219,7 @@
 						if (checkX.x< event.point.x){
 							allPathsList[allPathsList.length-1].push(event.point.x);
 							allPathsList[allPathsList.length-1].push(event.point.y);
-							another_count++;	
+							count_3++;	
 							path.add(event.point);
 						
 						}
@@ -225,7 +232,7 @@
 							allPathsList[allPathsList.length-1].push(event.point.y);					
 							path.add(event.point);
 							checkX=event.point;
-							another_count++;
+							count_3++;
 							pointList.push(event.point["x"], event.point["y"]);
 						
 						}
@@ -233,7 +240,7 @@
 
 				}else{
 
-					another_count = 0;
+					count_3 = 0;
 					number_point++;
 					var segmentCount = path.segments.length;
 					textItem.content = segmentCount;
@@ -241,7 +248,8 @@
 					// reinitilizae the pointList
 					pointList = [];	
 					path.selected = false;				
-					
+					shutup();
+
 					// for testing purposes, display all paths and latest path
 					numPaths = allPathsList.length;
 					textItem.content = allPathsList + "\n" + allPathsList[numPaths-1] + "\n";
@@ -256,7 +264,7 @@
 			shiftPoints = new Tool();
 			shiftPoints.onMouseDown = function(event) {
 	
-
+				shutup();//put here to fix a bug
 				if ((50 <= event.point["x"]) && (event.point["x"] <= 700) && (10 <= event.point["y"]) && (event.point["y"] <= 460)) {
 					//path=group.children[group.children.length-1];
 					//first time remove point
@@ -266,29 +274,56 @@
 						path=group.children[group.children.length-1];
 						path.selected = true;
 						var arr_segments=path.segments;
-
-
+						
+						pre_x=50;
+						suc_x=700;
 						for (i=0; i<arr_segments.length;i++){
 							if(close(arr_segments[i].point.x,arr_segments[i].point.y,event.point.x,event.point.y)){
 								position_index=i;
+								if(i!=arr_segments.length-1){
+									suc_x=arr_segments[position_index+1].point.x;
+								}
+								if(i!=0){
+									pre_x=arr_segments[i-1].point.x;
+								}
+								
+								count_4=0;
+								fourth=false;
 								path.removeSegment(i);
 								break;
 							}
 							pre_x=arr_segments[i].point.x;
 						}
-						suc_x=arr_segments[position_index+1].point.x;
-						fourth=false;
+
 						//needed to be intialized to handle boundary condition
 
 						
 					}else{
 					//second time add new point
-						if(pre_x<event.point.x<suc_x){
-							path.insert(position_index,event.point);
-							path.selected = false;
-							allPathsList[allPathsList.length-1][position_index*2]=event.point.x;
-							allPathsList[allPathsList.length-1][position_index*2+1]=event.point.y;
+						if(pre_x<event.point.x&&event.point.x<suc_x){
+							if(position_index>=0){
+								path.insert(position_index,event.point);
+								path.selected = false;
+								shutup();
+								allPathsList[allPathsList.length-1][position_index*2]=event.point.x;
+								allPathsList[allPathsList.length-1][position_index*2+1]=event.point.y;
+								position_index=-1;
+							}else{
+								alert("why wake me up?");
+							
+							}
+
 							fourth=true;
+						
+						}else{
+							count_4++;
+							if (count_4>5){
+								fourth=true;
+								
+								shutup();
+								path.selected = false;
+								allPathsList[allPathsList.length-1].splice(position_index*2,2);							
+							}
 						
 						}
 						
@@ -296,7 +331,12 @@
 			
 				}else{
 					path.selected = false;
-					fourth=true;				
+					shutup();
+					fourth=true;
+					if( !fourth){
+						allPathsList[allPathsList.length-1].splice(position_index*2,2);							
+
+					}
 				}
 			}
 			
@@ -305,7 +345,23 @@
 			function close(a_x,a_y,b_x,b_y){
 				var dis=Math.pow(b_x-a_x,2)+Math.pow(b_y-a_y,2);
 				//alert(Math.pow(b_x-a_x,2),b_x,a_x);
-				return dis<16;
+				return dis<12;
+			}
+			function shutup(){
+				// set select to false to every one
+				count=0;
+				count_3=0;
+				count_4=0;
+				if (another_count!=0){
+					group.addChild(path);
+				}
+				another_count=0
+				if (!group.isEmpty()){
+					for (i=0;i<group.length;i++){
+						group[i].children.selected=false;
+					}
+				}
+			
 			}
 			function transfrom(){
 				var xmin=+document.getElementById(smin).value;
