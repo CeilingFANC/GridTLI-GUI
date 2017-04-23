@@ -25,7 +25,30 @@
 		</ul>
 	</nav>
 	
+	<div id="tools">
+		<label>
+			<input type="radio" name="tool" class="btn" value="select" id="select">
+			<img src="icon-mouse.png" id="select" onClick="selectLine.activate()">
+		</label>
+		<label>
+			<input type="radio" name="tool" class="btn" value="pencil" id="pencil" checked>
+			<img src="icon-pencil.png" id="pencil" onClick="drawLine.activate()">
+		</label>	
 
+		<label>
+			<input type="radio" name="tool" class="btn" value="segment" id="segment">
+			<img src="icon-segment.png" id="dot" onClick="drawPoints.activate()">
+		</label>
+
+		<label>
+			<input type="radio" name="tool" class="btn" value="eraser" id="eraser">
+			<img src="icon-eraser.png" id="eraser" onClick="deleteLines.activate()">
+		</label>
+		<label>
+			<input type="radio" name="tool" class="btn" value="move" id="move">
+			<img src="icon-move.png" id="move" onClick="movePoints.activate()">
+		</label>
+	</div>
 	
 	<div id="tab">
 		<article id="drawingGrid">
@@ -91,30 +114,6 @@
 			</article>
 			<button type="button" id="changeVals" onClick="changeValues()">Run</button>
 		</div>
-		<div id="tools">
-			<label>
-				<input type="radio" name="tool" class="btn" value="select" id="select">
-				<img src="icon-mouse.png" id="select" onClick="selectLine.activate()">
-			</label>
-			<label>
-				<input type="radio" name="tool" class="btn" value="pencil" id="pencil" checked>
-				<img src="icon-pencil.png" id="pencil" onClick="drawLine.activate()">
-			</label>	
-
-			<label>
-				<input type="radio" name="tool" class="btn" value="segment" id="segment">
-				<img src="icon-segment.png" id="dot" onClick="drawPoints.activate()">
-			</label>
-
-			<label>
-				<input type="radio" name="tool" class="btn" value="eraser" id="eraser">
-				<img src="icon-eraser.png" id="eraser" onClick="deleteLines.activate()">
-			</label>
-			<label>
-				<input type="radio" name="tool" class="btn" value="move" id="move">
-				<img src="icon-move.png" id="move" onClick="movePoints.activate()">
-			</label>
-		</div>
 	</div>
 	<!--this section helps me check the javascript function that "run" gathers the values-->
 	<br><br>
@@ -154,15 +153,7 @@
 	<!-- tool buttons -->
 
 
-<div id="footer">This footer 
-<a href="http://cidarlab.org/" target="_blank">
-<img src="cidar_s.png" alt="bu" style="width:210px;height:74px;">
-</a>
-<a href="http://www.bu.edu" target="_blank">
-<img src="bu.png" alt="bu" style="width:160px;height:74px;">
-</a>
-
-</div>
+<div id="footer">This footer will always be positioned at the bottom of the page, but <strong>not fixed</strong></div>
  
 </body>
 </html>

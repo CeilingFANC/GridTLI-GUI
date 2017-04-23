@@ -1,59 +1,51 @@
 html, body {
     margin: 0;
-    overflow: scroll;
     height: 100%;
-    background-color: lightslategray;
+    background-color: white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 12px;
 }
 
+/* CANVAS AREA */
 #tab {
-    float: right;
-    width: 950px;
-    /*max-width: 1000px;*/
+    float: center;
+    width: 1050px;
     height: 580px;
-    margin: 120px 50px 0px auto;
-    background-color: #aaa;
-    padding: 20px;
+    margin: 30px 10px 0px 100px;
+    padding: 15px;
 }
 
 #tab #drawingGrid {
     float: right;
-    /*margin-left: 50px;*/
+	background-color: green;
 }
 
 canvas {
-    width: 650px;
-    height: 450px;
-    display: block;
-}
-
-#label {
-    margin: -925px 0 0 -750px;
-}
-
-#gridlayer {
-    margin: 50px 20px 0 0;
-}
-
-#axislayer {
     width: 710px;
     height: 510px;
-    margin: -460px 0 0 -50px;
+		border-radius: 20px ;
+    margin: 50px 0px 0 -50px;
+   
+	    background-color: orange;
+
 }
 
-#canvas {
-    margin: -500px 20px 0 0;
+#axisLabel {
+    margin: -960px 0 0 -740px;
 }
 
 #tab #threshold {
     float: left;
-    width: auto;
-    max-width: 170px;
-    margin: 30px auto 0px 20px;
-    padding: 70px 0 45px 0;
+    width: 240px;
+    max-width: 240px;
+	opacity: 0.8;
+	border-radius: 20px ;	
+    margin: 80px auto 0px 0px;
+    padding: 15px 0 15px 0;
+    background-color: orange;
 }
 
+/* CANVAS CONTROLS */
 .graphLabels {
     float: left;
     width: 100px;
@@ -97,15 +89,17 @@ h3.thresh {
 }
 
 input {
-    width: 60px;
+    width: 50px;
     margin-top: 5px;
     font-size: 12px;
     text-align: center;
+	 border-radius: 5px;
 }
 
 button {
     text-align: center;
     font-weight: bold;
+	border-radius: 10px;
 }
 
 #changeVals {
@@ -114,24 +108,123 @@ button {
     margin: 0px 0 0 50px;
 }
 
-.navbar {
-    overflow: hidden;
-    background-color: #333;
-    position: fixed; /* Set the navbar to fixed position */
-    top: 0; /* Position the navbar at the top of the page */
-    width: 100%; /* Full width */
+/* TOOL AREA */
+#tools {
+	float: left;
+    width: 220px;
+    border: 1px solid orange;
+    padding: 15px;
+	background-color: orange;
+	margin-top: 450px;
+	margin-left: -240px;
+	opacity: 0.75;
+	border-radius: 15px 30px;
+    display: block;
 }
 
-.navbar a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
+label > input{ /* hide radio buttons */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+}
+
+label > input + img{ /* image style */
+  cursor:pointer;
+  border:2px outset;
+  background-color: #e6e6e6;
+}
+
+label > input:checked + img{ /* checked image style */
+  border:2px inset;
+  background-color: #c6c6c6;
+}
+
+img {
+    width: 15px;
+    height: 15px;
+    padding: 5px;
+}
+
+/* NAVIGATION BAR */
+nav {
+    overflow: hidden;
+    background-color: #19191f;
+    position: fixed; /* fixed position */
+    top: 0; /* Position at the top of page */
+    width: 100%; /* Full width */
+    height: 90px;
     text-align: center;
-    padding: 14px 16px;
+}
+
+nav ul {
+    list-style: none;
+    display: inline-block;
+    margin: 30px 30% 0 33%;
+}
+
+nav ul li {
+    float: left;
+    /*margin: 82px 50% 0 0;*/
+    text-align: left;
+    padding: 0;
+}
+
+
+nav ul li a:hover {
+	border-radius: 10px;
+	font-size: 125%;
+    background-color: orange;
+	opacity: 0.6;
+	
+}
+nav img {
+    float: left;
+    margin: 21px 0 10px 25px;
+    height: 54px;
+    width: 170px;
+}
+
+nav a {
+    color: white;
+    text-align: left;
+    padding: 21px 16px;
+    text-decoration: none;
+	font-size: 14px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+na0 {
+    margin_top: 100px;
+}
+/*footer*/
+#footer {
+  position: relative;
+  margin-top: -120px; /* negative value of footer height */
+  height: 120px;
+  margin-right: 0px;
+  margin-left: 0px; 
+  width: 100%; /* Full width */
+
+  background-color: #19191f;
+    text-align: center;
+
+} 
+
+
+/* SIDEBAR */
+/*.sidebar-left {
+    text-align: justify;
+    color: black;
+    padding: 5px;
     text-decoration: none;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.sidebar-left > p {
+    padding: 10px;
+    width: 30%;
+    max-width: 400px;
+}*/
+
+/* GENERAL */
 .rotate {
     /* Safari */
     -webkit-transform: rotate(-90deg);
